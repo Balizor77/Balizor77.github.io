@@ -1,0 +1,405 @@
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIR GOLD - Kuyumcu Atölyesi</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #fff;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #bfa126;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #bfa126,
+        0 0 20px #bfa126,
+        0 0 40px #ffd700;
+      letter-spacing: 6px;
+      user-select: none;
+    }
+
+    /* Menu button */
+    .menu-button {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #bfa126;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .menu-button:hover {
+      background-color: #d4b93f;
+    }
+
+    /* Dropdown menu */
+    .menu-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 60px;
+      background: #fff;
+      border: 1px solid #bfa126;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(191, 161, 38, 0.4);
+      width: 220px;
+      z-index: 100;
+    }
+    .menu-content.active {
+      display: block;
+    }
+    .menu-content ul {
+      list-style: none;
+    }
+    .menu-content li {
+      padding: 12px 15px;
+      border-bottom: 1px solid #f0e68c;
+      cursor: pointer;
+      color: #bfa126;
+      font-weight: 600;
+    }
+    .menu-content li:last-child {
+      border-bottom: none;
+    }
+    .menu-content li:hover {
+      background: #fff8dc;
+    }
+
+    /* Categories section */
+    .categories {
+      max-width: 1200px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .categories h2 {
+      color: #bfa126;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      border-bottom: 2px solid #bfa126;
+      padding-bottom: 5px;
+      user-select: none;
+    }
+    .category-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .category {
+      background: #fff;
+      border: 1px solid #f3eac2;
+      box-shadow: 0 0 10px rgba(191, 161, 38, 0.15);
+      border-radius: 8px;
+      width: 23%;
+      min-width: 200px;
+      padding: 15px;
+      color: #bfa126;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    .category:hover {
+      background-color: #fff8dc;
+      color: #8c6a00;
+    }
+
+    /* Models gallery */
+    .models-gallery {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      min-height: 180px;
+      color: #bfa126;
+      font-weight: 700;
+      font-size: 1.2rem;
+      align-items: center;
+      user-select: none;
+    }
+    .models-gallery img {
+      width: 180px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(191, 161, 38, 0.5);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .models-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Communication & order section container */
+    .info-order-container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    /* Communication section */
+    .communication {
+      flex: 1;
+      min-width: 280px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid #f3eac2;
+      box-shadow: 0 0 10px rgba(191, 161, 38, 0.15);
+      color: #bfa126;
+      font-weight: 600;
+      user-select: none;
+    }
+    .communication h3 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      border-bottom: 2px solid #bfa126;
+      padding-bottom: 6px;
+    }
+    .communication p {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #8c6a00;
+    }
+
+    /* Order form section */
+    .order-section {
+      flex: 1;
+      min-width: 280px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid #f3eac2;
+      box-shadow: 0 0 10px rgba(191, 161, 38, 0.15);
+      user-select: none;
+    }
+    .order-section h3 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      color: #bfa126;
+      border-bottom: 2px solid #bfa126;
+      padding-bottom: 6px;
+    }
+    .order-section form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .order-section label {
+      font-weight: 600;
+      color: #8c6a00;
+    }
+    .order-section input,
+    .order-section select,
+    .order-section textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+    .order-section button {
+      background-color: #bfa126;
+      color: white;
+      padding: 12px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .order-section button:hover {
+      background-color: #d4b93f;
+    }
+
+    /* Payment methods (simple icons) */
+    .payment-methods {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .payment-methods img {
+      width: 50px;
+      height: auto;
+      filter: drop-shadow(0 0 1px #bfa126);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .category-list {
+        justify-content: center;
+      }
+      .category {
+        width: 45%;
+      }
+      .info-order-container {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 480px) {
+      .category {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MIR GOLD</h1>
+    <button class="menu-button" id="menuBtn">Menü ▼</button>
+    <nav class="menu-content" id="menuContent" aria-label="Menü">
+      <ul>
+        <li>Hesap Bilgileri</li>
+        <li>Sepet</li>
+        <li>Ödeme Yöntemleri</li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="categories" aria-label="Altın Kategorileri">
+    <h2>Kategoriler</h2>
+    <div class="category-list">
+      <div class="category" data-category="8k">8 Ayar Altın Modelleri</div>
+      <div class="category" data-category="14k">14 Ayar Altın Modelleri</div>
+      <div class="category" data-category="21k">21 Ayar Altın Modelleri</div>
+      <div class="category" data-category="22k">22 Ayar Altın Modelleri</div>
+    </div>
+
+    <!-- Models display -->
+    <div id="modelsDisplay" class="models-gallery" aria-live="polite" aria-atomic="true">
+      <!-- Model bilgileri burada görünecek -->
+    </div>
+  </section>
+
+  <section class="info-order-container">
+    <div class="communication" aria-label="İletişim Bilgileri">
+      <h3>Bize Ulaşın</h3>
+      <p>Telefon: <a href="tel:+5549365625" style="color:#8c6a00; text-decoration:none;">5549365625</a></p>
+      <p>E-posta: <a href="mailto:balizorgold@gmail.com" style="color:#8c6a00; text-decoration:none;">balizorgold@gmail.com</a></p>
+    </div>
+
+    <div class="order-section" aria-label="Sipariş Formu">
+      <h3>Sipariş Verin</h3>
+      <form id="orderForm">
+        <label for="name">Ad Soyad</label>
+        <input type="text" id="name" name="name" required placeholder="Adınız ve soyadınız" />
+
+        <label for="email">E-posta Adresi</label>
+        <input type="email" id="email" name="email" required placeholder="E-posta adresiniz" />
+
+        <label for="phone">Telefon Numarası</label>
+        <input type="tel" id="phone" name="phone" required placeholder="Telefon numaranız" />
+
+        <label for="category">Kategori Seçin</label>
+        <select id="category" name="category" required>
+          <option value="">--Kategori seçin--</option>
+          <option value="8k">8 Ayar Altın Modelleri</option>
+          <option value="14k">14 Ayar Altın Modelleri</option>
+          <option value="21k">21 Ayar Altın Modelleri</option>
+          <option value="22k">22 Ayar Altın Modelleri</option>
+        </select>
+
+        <label for="details">Sipariş Detayları</label>
+        <textarea id="details" name="details" rows="4" placeholder="Model, adet veya özel isteklerinizi belirtin"></textarea>
+
+        <button type="submit">Siparişi Gönder</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="payment-methods" aria-label="Ödeme Yöntemleri">
+    <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" />
+    <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" />
+    <img src="https://img.icons8.com/color/48/000000/paypal.png" alt="Paypal" />
+    <img src="https://img.icons8.com/color/48/000000/amex.png" alt="American Express" />
+  </section>
+
+  <script>
+    // Menü açma kapama
+    const menuBtn = document.getElementById('menuBtn');
+    const menuContent = document.getElementById('menuContent');
+    menuBtn.addEventListener('click', () => {
+      menuContent.classList.toggle('active');
+    });
+
+    // Kategoriler ve modeller
+    const categories = document.querySelectorAll('.category');
+    const modelsDisplay = document.getElementById('modelsDisplay');
+
+    function clearModels() {
+      modelsDisplay.innerHTML = '';
+    }
+
+    function showPlaceholder(category) {
+      clearModels();
+      const p = document.createElement('p');
+      p.textContent = `${category.toUpperCase()} kategorisi için modeller yakında eklenecektir.`;
+      p.style.color = '#bfa126';
+      p.style.fontWeight = '700';
+      p.style.fontSize = '1.2rem';
+      p.style.textAlign = 'center';
+      p.style.width = '100%';
+      modelsDisplay.appendChild(p);
+    }
+
+    categories.forEach(cat => {
+      cat.addEventListener('click', () => {
+        const category = cat.getAttribute('data-category');
+        showPlaceholder(category);
+      });
+    });
+
+    // Sayfa yüklendiğinde varsayılan mesaj göster
+    window.addEventListener('DOMContentLoaded', () => {
+      showPlaceholder('14k');
+    });
+
+    // Basit sipariş formu gönderimi (demo için gerçek gönderimi engelle)
+    const orderForm = document.getElementById('orderForm');
+    orderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Siparişiniz için teşekkürler! En kısa sürede sizinle iletişime geçeceğiz.');
+      orderForm.reset();
+    });
+  </script>
+</body>
+</html>
